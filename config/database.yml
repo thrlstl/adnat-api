@@ -82,5 +82,6 @@ test:
 production:
   <<: *default
   database: adnat_api_production
+  adapter: 'postgresql'
   username: adnat_api
   password: <%= ENV['ADNAT_API_DATABASE_PASSWORD'] %>
