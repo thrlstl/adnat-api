@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  post '/auth', to: 'auth#create'
   resources :shifts
   resources :organization_users
   resources :organizations
