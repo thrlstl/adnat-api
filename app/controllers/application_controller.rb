@@ -1,30 +1,38 @@
 class ApplicationController < ActionController::API
-    # skip_before_action :verify_authenticity_token
-    # before_action :is_authorized
+    before_action :authorized
 
-    # def is_authorized
-    #     render json: {error: 'Please Log In'} unless is_signed_in
-    # end
+    def encode_token(payload)
+        JWT.encode(payload, Rails.application.secrets.secret_key_base[0])
+    end
+    
+    def auth_header
+        request.headers['Authorization']
+    end
+    
+    def decoded_token
+        if auth_header
+            token = auth_header.split(' ')[1]
+            begin
+                JWT.decode(token, Rails.application.secrets.secret_key_base[0], true, algorithm: 'HS256')
+            rescue JWT::DecodeError
+                nil
+            end
+        end
+    end
 
-    # def is_signed_in
-    #     !!current_user
-    # end
+    def logged_in_user
+        if decoded_token
+            user_id = decoded_token[0]['user_id']
+            @user = User.find_by(id: user_id)
+        end
+    end
 
-    # def current_user
-    #     auth_header = request.header['Authorization']
-    #     if auth_header
-    #         user_token = auth_header.split('')[1]
-    #         begin
-    #             @user_id = JWT.decode(user_token, Rails.application.secrets.secret_key_base[0][0]['user_id'])            
-    #         rescue JWT::DecodeError
-    #             nil
-    #         end
-    #     end
-    #     if (@user_id)
-    #         @user = User.find(@user_id)
-    #     else
-    #         nil
-    #     end
-    # end
+    def logged_in?
+        !!logged_in_user
+    end
+
+    def authorized
+        render json: { message: 'Please log in' }, status: :unauthorized unless logged_in?
+    end
 
 end

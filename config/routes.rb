@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   post '/login', to: 'users#login'
-  # get '/auth', to: 'auth#create'
+  get '/auto_login', to: 'users#auto_login'
   resources :shifts
   resources :organization_users
   resources :organizations
