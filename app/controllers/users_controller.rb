@@ -36,7 +36,7 @@ class UsersController < ApplicationController
 
     # AUTO LOG IN W/ TOKEN
     def auto_login
-        render json: @user
+        render json: {user: @user, token: @token}
     end
     
     private
