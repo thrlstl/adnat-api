@@ -1,4 +1,5 @@
 class OrganizationsController < ApplicationController
+    skip_before_action :authorized
 
     def index
         @organizations = Organization.all
