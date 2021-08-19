@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   post '/login', to: 'users#login'
   get '/auto_login', to: 'users#auto_login'
+  delete '/leave', to: 'organization_users#destroy'
   resources :shifts
   resources :organization_users
   resources :organizations
