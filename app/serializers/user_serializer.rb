@@ -3,6 +3,7 @@ class UserSerializer < ActiveModel::Serializer
   :name, 
   :email_address, 
   :organizations,
+  :other_organizations,
   :shifts
   
   has_many :organizations
