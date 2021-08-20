@@ -32,11 +32,10 @@ end
 
 puts 'Users are picking up shifts...'
 50.times do |n|
-    start = Faker::Time.between_dates(from: Date.today - 1, to: Date.today, period: :morning)  
-    finish = Faker::Time.between_dates(from: Date.today - 1, to: Date.today, period: :evening)
-    break_length = Faker::Number.between(from: 1, to: 60)
+    start = Faker::Time.between_dates(from: Date.today - 1, to: Date.today - 1, period: :morning)  
+    finish = Faker::Time.between_dates(from: Date.today - 1, to: Date.today - 1, period: :evening)
+    break_length = Faker::Number.between(from: 30, to: 60)
     association = OrganizationUser.all.sample
-
     Shift.create(
         :organization_id => association.organization_id,
         :user_id => association.user_id,
