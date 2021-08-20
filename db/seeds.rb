@@ -18,7 +18,7 @@ end
 puts 'creating Organizations...'
 10.times do Organization.create(
     name: Faker::Company.name,
-    hourly_rate: Faker::Number.between(from: 15, to: 75)
+    hourly_rate: Faker::Commerce.price(range: 15.00..75.00)
 )
 end
 
