@@ -11,9 +11,16 @@ puts 'creating Users...'
 10.times do User.create(
     name: Faker::Name.name,
     email_address: Faker::Internet.safe_email,
-    password: 'password'
+    password: 'adnatdemo'
 )
 end
+
+puts 'creating Demo User...'
+User.create(
+    name: 'Demo User',
+    email_address: 'demo_user@adnat.com',
+    password: 'adnatdemo'
+)
 
 puts 'creating Organizations...'
 10.times do Organization.create(
