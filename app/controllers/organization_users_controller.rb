@@ -19,6 +19,7 @@ class OrganizationUsersController < ApplicationController
             @shifts = Shift.where(organization_id: params[:organization_id], user_id: params[:user_id])
             @shifts.destroy_all
             @organization_users_item.delete
+            render json: { success: true }
         else
             render json: { error: 'Sorry, try again!' }
         end
