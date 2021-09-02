@@ -1,6 +1,6 @@
 class OrganizationUser < ApplicationRecord
   
-  belongs_to :user
-  belongs_to :organization
+  belongs_to :user, touch: true
+  belongs_to :organization, touch: true
 
 end

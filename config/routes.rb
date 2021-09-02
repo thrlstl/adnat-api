@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   post '/login', to: 'users#login'
   get '/auto_login', to: 'users#auto_login'
-  delete '/leave', to: 'organization_users#destroy'
-  post '/join', to: 'organization_users#create'
+  delete '/leave', to: 'organization_users#leave'
+  post '/join', to: 'organizations#join'
   resources :shifts
   resources :organization_users
   resources :organizations

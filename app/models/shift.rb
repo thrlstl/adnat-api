@@ -2,7 +2,7 @@ class Shift < ApplicationRecord
   validates :start, :finish, :organization, :user, :break_length, presence: true
   validates :break_length, numericality: { greater_than_or_equal_to: 10, less_than_or_equal_to: 60 }, allow_blank: true
   validate :shift_scheduling, if: :dates_and_break_present?
-  belongs_to :organization
+  belongs_to :organization, touch: true
   belongs_to :user
   
   def dates_and_break_present?
