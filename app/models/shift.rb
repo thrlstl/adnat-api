@@ -1,7 +1,21 @@
 class Shift < ApplicationRecord
-  
+  validates :start, :finish, :organization, :user, :break_length, presence: true
+  validates :break_length, numericality: { greater_than_or_equal_to: 10, less_than_or_equal_to: 60 }, allow_blank: true
+  validate :shift_scheduling, if: :dates_and_break_present?
   belongs_to :organization
   belongs_to :user
+  
+  def dates_and_break_present?
+    start.presence && finish.presence && break_length.presence
+  end
+
+  def shift_scheduling
+    if finish < start || start == finish
+      errors.add(:finish, "Sorry, shift must finish later than start day/time.")
+    elsif hours_worked < 1
+      errors.add(:finish, "Sorry, shifts must be 1+ hours excluding break.")
+    end
+  end
 
   def shift_date 
     self.start.strftime('%m/%d/%Y')
